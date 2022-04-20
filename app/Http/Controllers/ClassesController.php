@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Models\Classes;
+use App\Http\Requests\ClassesRequest;
 
 
 class ClassesController extends Controller
@@ -11,38 +13,46 @@ class ClassesController extends Controller
 
     public function list()
     {
-        $ret = Classes::with([ /* 'students' */ 'lections'])->get();
-
+        $ret = Classes::all();
         return response()->json($ret);
     }
 
-    public function info()
+    public function info($class_id)
+    {
+        $ret = Classes::with('students')->findOrFail($class_id);
+        return response()->json($ret->toArray());
+    }
+
+    public function lections_list($class_id)
+    {
+        $ret = Classes::with('lections')->findOrFail($class_id);
+        return response()->json($ret->toArray());
+    }
+
+    public function lections_update($class_id)
     {
         return response()->json(['cat' => '(^◔ᴥ◔^)']);
     }
 
-    public function lections_list()
+    public function create(ClassesRequest $request)
     {
-        return response()->json(['cat' => '(^◔ᴥ◔^)']);
+        $class = new Classes;
+        $class->fill($request->all());
+        $class->save();
+        return response()->json($class->toArray());
     }
 
-    public function lections_update()
+    public function update($class_id, ClassesRequest $request)
     {
-        return response()->json(['cat' => '(^◔ᴥ◔^)']);
+        $class = Classes::findOrFail($class_id);
+        $class->fill($request->all());
+        $class->save();
+        return response()->json($class->toArray());
     }
 
-    public function create()
+    public function delete($class_id)
     {
-        return response()->json(['cat' => '(^◔ᴥ◔^)']);
-    }
-
-    public function update()
-    {
-        return response()->json(['cat' => '(^◔ᴥ◔^)']);
-    }
-
-    public function delete()
-    {
-        return response()->json(['cat' => '(^◔ᴥ◔^)']);
+        Classes::findOrFail($class_id)->delete();
+        return response()->json(['status' => 'OK', 'cat' => '(^◔ᴥ◔^)']);
     }
 }

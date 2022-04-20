@@ -12,6 +12,10 @@ class Classes extends Model
 
     public $table = 'classes';
 
+    public $fillable = [
+        'name',
+    ];
+
     public function students()
     {
         return $this->hasMany(Students::class, 'class_id', 'id');
