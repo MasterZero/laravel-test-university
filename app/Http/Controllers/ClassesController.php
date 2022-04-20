@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Classes;
+
 
 class ClassesController extends Controller
 {
 
     public function list()
     {
-        return response()->json(['cat' => '(^◔ᴥ◔^)']);
+        $ret = Classes::with([ /* 'students' */ 'lections'])->get();
+
+        return response()->json($ret);
     }
 
     public function info()

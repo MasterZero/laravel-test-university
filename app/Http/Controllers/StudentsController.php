@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Students;
 
 class StudentsController extends Controller
 {
 
     public function list()
     {
-        return response()->json(['cat' => '(^◔ᴥ◔^)']);
+        $ret = Students::with('class')->get();
+
+        return response()->json($ret);
     }
 
     public function info()

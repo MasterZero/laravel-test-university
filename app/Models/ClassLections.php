@@ -10,4 +10,16 @@ class ClassLections extends Model
     use HasFactory;
 
     public $table = 'class_lections';
+
+
+    public function lection()
+    {
+        return $this->belongsTo(Lections::class, 'lection_id', 'id');
+    }
+
+    public function class()
+    {
+        return $this->belongsTo(Classes::class, 'class_id', 'id');
+    }
+
 }

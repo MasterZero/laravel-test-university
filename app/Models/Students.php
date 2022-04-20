@@ -10,4 +10,10 @@ class Students extends Model
     use HasFactory;
 
     public $table = 'students';
+
+
+    public function class()
+    {
+        return $this->belongsTo(Classes::class, 'class_id', 'id');
+    }
 }
