@@ -10,4 +10,9 @@ class Lections extends Model
     use HasFactory;
 
     public $table = 'lections';
+
+    public $fillable = [
+        'subject',
+        'description',
+    ];
 }

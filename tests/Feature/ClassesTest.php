@@ -62,4 +62,9 @@ class ClassesTest extends TestCase
         //delete already deleted
         $this->getJson('/api/class/' . $class_id)->assertStatus(404);
     }
+
+
+    /**
+     * @TODO: get and update lection list
+    */
 }

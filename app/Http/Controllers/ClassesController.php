@@ -13,8 +13,7 @@ class ClassesController extends Controller
 
     public function list()
     {
-        $ret = Classes::all();
-        return response()->json($ret);
+        return response()->json(Classes::all());
     }
 
     public function info($class_id)
@@ -31,6 +30,9 @@ class ClassesController extends Controller
 
     public function lections_update($class_id)
     {
+        /**
+         * @TODO: fill it
+        */
         return response()->json(['cat' => '(^◔ᴥ◔^)']);
     }
 
