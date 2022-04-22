@@ -30,4 +30,11 @@ class Classes extends Model
     {
         return $this->belongsToMany(Lections::class, 'class_lections', 'class_id', 'lection_id')->withPivot('planned_at');
     }
+
+    public function passLections()
+    {
+        return $this->belongsToMany(Lections::class, 'class_lections', 'class_id', 'lection_id')
+            ->withPivot('planned_at')
+            ->where('planned_at', '<=', date('Y-m-d H:i:s'));
+    }
 }

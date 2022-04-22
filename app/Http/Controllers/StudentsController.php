@@ -17,11 +17,8 @@ class StudentsController extends Controller
 
     public function info($id)
     {
-        /**
-         * @TODO: include lections + class
-        */
         return response()->json(
-            Students::findOrFail($id)
+            Students::with('class.passLections')->findOrFail($id)
         );
     }
 
