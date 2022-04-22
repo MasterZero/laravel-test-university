@@ -11,6 +11,11 @@ class Students extends Model
 
     public $table = 'students';
 
+    public $fillable = [
+        'name',
+        'email',
+        'class_id',
+    ];
 
     public function class()
     {

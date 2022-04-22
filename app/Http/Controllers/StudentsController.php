@@ -4,34 +4,46 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Students;
+use App\Http\Requests\StudentsRequest;
+
 
 class StudentsController extends Controller
 {
 
     public function list()
     {
-        $ret = Students::with('class')->get();
-
-        return response()->json($ret);
+        return response()->json(Students::all());
     }
 
-    public function info()
+    public function info($id)
     {
-        return response()->json(['cat' => '(^◔ᴥ◔^)']);
+        /**
+         * @TODO: include lections + class
+        */
+        return response()->json(
+            Students::findOrFail($id)
+        );
     }
 
-    public function create()
+    public function create(StudentsRequest $request)
     {
-        return response()->json(['cat' => '(^◔ᴥ◔^)']);
+        $model = new Students;
+        $model->fill($request->all());
+        $model->save();
+        return response()->json($model);
     }
 
-    public function update()
+    public function update($id, StudentsRequest $request)
     {
-        return response()->json(['cat' => '(^◔ᴥ◔^)']);
+        $model = Students::findOrFail($id);
+        $model->fill($request->all());
+        $model->save();
+        return response()->json($model);
     }
 
-    public function delete()
+    public function delete($id)
     {
-        return response()->json(['cat' => '(^◔ᴥ◔^)']);
+        Students::findOrFail($id)->delete();
+        return response()->json(['status' => 'OK', 'cat' => '(^◔ᴥ◔^)']);
     }
 }

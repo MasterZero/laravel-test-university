@@ -18,8 +18,9 @@ class LectionsController extends Controller
         /**
          * @TODO: add classes and students
         */
-        $ret = Lections::findOrFail($id);
-        return response()->json($ret->toArray());
+        return response()->json(
+            Lections::findOrFail($id)
+        );
     }
 
     public function create(LectionsRequest $request)
@@ -27,7 +28,7 @@ class LectionsController extends Controller
         $lection = new Lections;
         $lection->fill($request->all());
         $lection->save();
-        return response()->json($lection->toArray());
+        return response()->json($lection);
     }
 
     public function update($id, LectionsRequest $request)
@@ -35,7 +36,7 @@ class LectionsController extends Controller
         $lection = Lections::findOrFail($id);
         $lection->fill($request->all());
         $lection->save();
-        return response()->json($lection->toArray());
+        return response()->json($lection);
     }
 
     public function delete($id)

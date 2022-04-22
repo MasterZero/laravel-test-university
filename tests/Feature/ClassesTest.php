@@ -66,5 +66,6 @@ class ClassesTest extends TestCase
 
     /**
      * @TODO: get and update lection list
+     * @TODO: delete class but keep students
     */
 }
