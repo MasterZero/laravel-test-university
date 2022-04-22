@@ -15,11 +15,8 @@ class LectionsController extends Controller
 
     public function info($id)
     {
-        /**
-         * @TODO: add classes and students
-        */
         return response()->json(
-            Lections::findOrFail($id)
+            Lections::with(['passClasses.students'])->findOrFail($id)
         );
     }
 

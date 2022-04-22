@@ -34,7 +34,7 @@ class ClassesSeeder extends Seeder
                 $classLection = new ClassLections;
                 $classLection->class_id = $class->id;
                 $classLection->lection_id = $lection->id;
-                $classLection->planned_at = $faker->dateTime() /*date('Y-m-d H:i:s') */;
+                $classLection->planned_at = $faker->dateTimeBetween('-1 week', '+1 week');
                 $classLection->save();
             }
         }

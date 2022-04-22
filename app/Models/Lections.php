@@ -15,4 +15,16 @@ class Lections extends Model
         'subject',
         'description',
     ];
+
+    public function classes()
+    {
+        return $this->belongsToMany(Classes::class, 'class_lections', 'class_id', 'lection_id')->withPivot('planned_at');
+    }
+
+    public function passClasses()
+    {
+        return $this->belongsToMany(Classes::class, 'class_lections', 'class_id', 'lection_id')
+            ->withPivot('planned_at')
+            ->where('planned_at', '<=', date('Y-m-d H:i:s'));
+    }
 }
