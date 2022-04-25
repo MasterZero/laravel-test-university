@@ -74,7 +74,6 @@ class ClassesTest extends TestCase
         /**
          * @TODO: add check to get info with students
         */
-
         $this->deleteJson(self::DELETE_API_URL . $class_id)->assertStatus(200);
     }
 
@@ -85,7 +84,6 @@ class ClassesTest extends TestCase
         $this->getJson(self::LIST_API_URL)->assertStatus(200)->assertJsonMissing($params);
         $class_id = $this->createTestClass();
         $this->getJson(self::LIST_API_URL)->assertStatus(200)->assertJsonFragment($params);
-
         $this->deleteJson(self::DELETE_API_URL . $class_id)->assertStatus(200);
     }
 

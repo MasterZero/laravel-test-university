@@ -98,36 +98,25 @@ class StudentsTest extends TestCase
 
     public function test_delete()
     {
-        //delete bad id
-        $this->deleteJson(self::DELETE_API_URL . 0)->assertStatus(404);
-
+        $this->deleteJson(self::DELETE_API_URL . 0)->assertStatus(404); //delete bad id
         $class_id = $this->createTestClass();
         $student_id = $this->createTestStudent($class_id);
-
         $this->deleteTestStudent($student_id, $class_id);
-
-        //delete already deleted
-        $this->deleteJson(self::DELETE_API_URL . $student_id)->assertStatus(404);
+        $this->deleteJson(self::DELETE_API_URL . $student_id)->assertStatus(404); //delete already deleted
     }
 
 
     public function test_get_info()
     {
-        //get uknown
-        $this->getJson(self::INFO_API_URL . 0)->assertStatus(404);
-
+        $this->getJson(self::INFO_API_URL . 0)->assertStatus(404); //get uknown
         $class_id = $this->createTestClass();
         $student_id = $this->createTestStudent($class_id);
-
-        //OK
-        $this->getJson(self::INFO_API_URL . $student_id)
+        $this->getJson(self::INFO_API_URL . $student_id) //OK
             ->assertStatus(200)
             ->assertJsonFragment(['id' => $student_id]);
-
         /**
          * @TODO: add check to get info with class and lections
         */
-
         $this->deleteTestStudent($student_id, $class_id);
     }
 
@@ -138,9 +127,7 @@ class StudentsTest extends TestCase
         $params = $this->createStudentParams($class_id);
         $this->getJson(self::LIST_API_URL)->assertStatus(200)->assertJsonMissing($params);
         $student_id = $this->createTestStudent($class_id);
-
         $this->getJson(self::LIST_API_URL)->assertStatus(200)->assertJsonFragment($params);
-
         $this->deleteTestStudent($student_id, $class_id);
     }
 
@@ -149,13 +136,11 @@ class StudentsTest extends TestCase
     {
         $class_id = $this->createTestClass();
         $student_id = $this->createTestStudent($class_id);
-
         $changeParams = [
             'name' => 'Doe',
             'email' => 'doe@google.com',
             'class_id' => $class_id,
         ];
-
         // update uknown
         $this->putJson(self::UPDATE_API_URL . 0, $changeParams)->assertStatus(404);
 
@@ -198,7 +183,6 @@ class StudentsTest extends TestCase
         $this->putJson(self::UPDATE_API_URL . $student_id, $changeParams)
             ->assertStatus(200)
             ->assertJsonFragment($changeParams);
-
 
         $this->deleteTestStudent($student_id, $class_id);
     }

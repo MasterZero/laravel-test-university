@@ -13,7 +13,7 @@ class LectionsController extends Controller
         return response()->json(Lections::all());
     }
 
-    public function info($id)
+    public function info(int $id)
     {
         return response()->json(
             Lections::with(['passClasses.students'])->findOrFail($id)
@@ -28,7 +28,7 @@ class LectionsController extends Controller
         return response()->json($lection);
     }
 
-    public function update($id, LectionsRequest $request)
+    public function update(int $id, LectionsRequest $request)
     {
         $lection = Lections::findOrFail($id);
         $lection->fill($request->all());
@@ -36,7 +36,7 @@ class LectionsController extends Controller
         return response()->json($lection);
     }
 
-    public function delete($id)
+    public function delete(int $id)
     {
         Lections::findOrFail($id)->delete();
         return response()->json(['status' => 'OK']);

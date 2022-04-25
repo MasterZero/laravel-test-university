@@ -20,13 +20,11 @@ class ClassesSeeder extends Seeder
     {
         $lections = Lections::factory()->count(60)->create();
 
-
         $classes = Classes::factory()
             ->count(10)
             ->has(Students::factory()->count(20))
             ->create();
 
-        
         $faker = Faker\Factory::create();
 
         foreach ($lections as $lection) {
