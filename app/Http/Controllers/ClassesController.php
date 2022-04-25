@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Models\Classes;
 use App\Http\Requests\ClassesRequest;
+use App\Http\Requests\ClassLectionRequest;
+
 
 
 class ClassesController extends Controller
@@ -30,12 +32,11 @@ class ClassesController extends Controller
         );
     }
 
-    public function lections_update($class_id)
+    public function lections_update($class_id, ClassLectionRequest $request)
     {
-        /**
-         * @TODO: fill it
-        */
-        return response()->json(['cat' => '(^◔ᴥ◔^)']);
+        $class = Classes::findOrFail($class_id);
+        $class->setLections($request->lections());
+        return response()->json(['status' => 'OK']);
     }
 
     public function create(ClassesRequest $request)
@@ -57,6 +58,6 @@ class ClassesController extends Controller
     public function delete($class_id)
     {
         Classes::findOrFail($class_id)->delete();
-        return response()->json(['status' => 'OK', 'cat' => '(^◔ᴥ◔^)']);
+        return response()->json(['status' => 'OK']);
     }
 }

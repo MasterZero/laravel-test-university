@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+
 
 class Classes extends Model
 {
@@ -36,5 +38,16 @@ class Classes extends Model
         return $this->belongsToMany(Lections::class, 'class_lections', 'class_id', 'lection_id')
             ->withPivot('planned_at')
             ->where('planned_at', '<=', date('Y-m-d H:i:s'));
+    }
+
+    public function setLections(array $lectionsArr)
+    {
+        DB::beginTransaction();
+        ClassLections::where('class_id', $this->id)->delete();
+        foreach($lectionsArr as $lectionData) {
+            $this->lections()->attach($lectionData['lection_id'], ['planned_at' => $lectionData['planned_at']]);
+        }
+        DB::commit();
+        return $this;
     }
 }
